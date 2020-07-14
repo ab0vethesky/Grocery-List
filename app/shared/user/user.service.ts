@@ -7,11 +7,14 @@ import { User } from "./user.model";
 import { Config } from "../config";
 
 @Injectable()
-export class UserService {
+export class UserService 
+{
     constructor(private http: HttpClient) { }
 
-    register(user: User) {
-        if (!user.email || !user.password) {
+    register(user: User) 
+    {
+        if (!user.email || !user.password) 
+        {
             return throwError("Please provide both an email address and password.");
         }
 
@@ -27,6 +30,7 @@ export class UserService {
             catchError(this.handleErrors)
         );
     }
+    /*
     login(user: User)
     {
         return this.http.post(
@@ -46,7 +50,23 @@ export class UserService {
             catchError(this.handleErrors)
         )
     }
-
+*/
+login(user: User) {
+    return this.http.post(
+        Config.apiUrl + "user/" + Config.appKey + "/login",
+        JSON.stringify({
+            username: user.email,
+            password: user.password
+        }),
+        { headers: this.getCommonHeaders() }
+    ).pipe(
+        map(response => response),
+        tap(data => {
+            Config.token = (<any>data)._kmd.authtoken
+        }),
+        catchError(this.handleErrors)
+    );
+}
     getCommonHeaders() {
         return {
             "Content-Type": "application/json",

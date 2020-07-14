@@ -1,12 +1,10 @@
-import { NgModule } from "@angular/core";
+import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular"
-
-//import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 
 import { AppComponent } from "./app.component";
 import { routes, navigatableComponents } from "./app.routing";
@@ -24,6 +22,9 @@ import { routes, navigatableComponents } from "./app.routing";
     AppComponent,
     ...navigatableComponents
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    NO_ERRORS_SCHEMA
+]
 })
 export class AppModule { }

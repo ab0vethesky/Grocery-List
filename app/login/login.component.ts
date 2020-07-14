@@ -8,53 +8,52 @@ import { Page } from "tns-core-modules/ui/page";
     selector: "gr-login",
     providers: [UserService],
     moduleId: module.id,
-    templateUrl: "./login.component.html",
-    styleUrls: ["./login.component.css"]
+    styleUrls: ["./login.component.css"],
+    templateUrl: "./login.component.html"
 })
 
 export class LoginComponent implements OnInit {
     user: User;
 
-    isLogginIn = true;
-    /*
-      constructor(private userService: UserService)
-      {
-        this.user = new User();
-      }*/
-    /*
-  constructor(private userService: UserService) {
-      this.user = new User();
-      this.user.email = "dipo@progress.com";
-      this.user.password = "mypassword";
-  }
-  */
-    constructor(private router: Router, private userService: UserService, private page: Page) {
+    isLoggingIn = true;
 
+    constructor(private router: Router, private userService: UserService, private page: Page) 
+    {
+        this.user = new User();
+        this.user.email = "dipo@progress.com";
+        this.user.password = "mypassword";
     }
+    // constructor(private userService: UserService) {
+    //     this.user = new User();
+    //     this.user.email = "my.test.account@nativescript.org";
+    //     this.user.password = "mypassword";
+    //   }
 
 
     submit() {
-        if (this.isLogginIn) {
+        if (this.isLoggingIn) {
             this.login();
         }
         else {
             this.signUp();
         }
     }
-    login() {
+    login() 
+    {
         this.userService.login(this.user)
-            .subscribe(
-                () => this.router.navigate(["/list"]),
-                (exception) => {
-                    if (exception.error && exception.error.description) {
-                        alert(exception.error.description);
-                    }
-                    else {
-                        alert(exception)
-                    }
+          .subscribe(
+            () => this.router.navigate(["/list"]),
+            (exception) => {
+                if(exception.error && exception.error.description) 
+                {
+                    alert(exception.error.description);
+                } else 
+                {
+                    alert(exception)
                 }
-            )
-    }
+            }
+          );
+      }
     signUp() {
         this.userService.register(this.user)
             .subscribe(
@@ -72,8 +71,9 @@ export class LoginComponent implements OnInit {
                 }
             )
     }
-    toggleDisplay() {
-        this.isLogginIn = !this.isLogginIn;
+    toggleDisplay() 
+    {
+        this.isLoggingIn = !this.isLoggingIn;
     }
 
     ngOnInit() {
